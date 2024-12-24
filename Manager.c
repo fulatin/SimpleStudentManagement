@@ -56,3 +56,32 @@ int saveToFile(char path[MAX_NAME_LEN]) {
   fclose(f);
   return 1;
 }
+
+// 找到一个空位的下标 -1： 未找到
+int findEmptyPos() {
+
+  for (int i = 0; i < MAX_STUDENT; ++i) {
+    if (Students[i] == 0)
+      return i;
+  }
+  return -1;
+}
+
+int readFromFile(char path[MAX_NAME_LEN]) {
+  FILE *f = fopen(path, "r");
+  int n;
+  fscanf(f, "%d", &n);
+  int readStudentCnt = 0;
+  for (int i = 1; i <= n; ++i) {
+    char buf[MAX_NAME_LEN];
+    int age;
+    fscanf(f, "%s", buf);
+    fscanf(f, "%d", &age);
+    if (addStudent(buf, age)) {
+      readStudentCnt++;
+    } else {
+      return 0;
+    }
+  }
+  return 1;
+}
