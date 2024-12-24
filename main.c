@@ -5,6 +5,5 @@ int main() {
   char buffer[MAX_NAME_LEN] = "dwdw";
   addStudent(buffer, 19);
   printf("%d", findStudentByName(buffer)->age);
-  printf("114514");
   printf("Haven't finished yet");
 }
