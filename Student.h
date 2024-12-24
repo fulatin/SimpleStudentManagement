@@ -3,7 +3,6 @@
 #define MAX_NAME_LEN 100
 struct student {
   char name[MAX_NAME_LEN];
-  int id;
   int age;
 };
 

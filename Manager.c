@@ -1,6 +1,8 @@
 #include "Manager.h"
 #include "Student.h"
 
+#include <stdio.h>
+int studentCnt = 0;
 Stu *Students[MAX_STUDENT];
 int addStudent(char name[MAX_NAME_LEN], int age) {
   Stu *newStu = AllocNewStudent(name, age);
@@ -17,7 +19,8 @@ int addStudent(char name[MAX_NAME_LEN], int age) {
   if (i == MAX_STUDENT) {
     return 0;
   } else {
-    return -1;
+    studentCnt++;
+    return 1;
   }
 }
 
@@ -37,4 +40,19 @@ Stu *findStudentByName(char name[MAX_NAME_LEN]) {
     }
   }
   return 0;
+}
+
+int saveToFile(char path[MAX_NAME_LEN]) {
+  FILE *f = fopen(path, "w");
+  if (!f)
+    return 0;
+  fprintf(f, "%d\n", studentCnt);
+  for (int i = 0; i < MAX_STUDENT; ++i) {
+    Stu *curr = Students[i];
+    if (curr) {
+      fprintf(f, "%s %d\n", curr->name, curr->age);
+    }
+  }
+  fclose(f);
+  return 1;
 }
