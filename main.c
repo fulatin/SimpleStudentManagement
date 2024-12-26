@@ -29,6 +29,7 @@ int main() {
     } else if (op == 2) {
 
     } else if (op == 3) {
+      printAllStudent();
 
     } else if (op == 4) {
       saveToFile("data");
