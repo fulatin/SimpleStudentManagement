@@ -19,6 +19,13 @@ int main() {
     scanf("%d", &op);
     if (op == 1) {
 
+      printf("请输入姓名：");
+      scanf("%s", buffer);
+      int age;
+      printf("请输入年龄：");
+      scanf("%d", &age);
+      if (!addStudent(buffer, age))
+        printf("添加失败");
     } else if (op == 2) {
 
     } else if (op == 3) {
