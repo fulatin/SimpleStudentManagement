@@ -85,3 +85,11 @@ int readFromFile(char path[MAX_NAME_LEN]) {
   }
   return 1;
 }
+
+void printAllStudent() {
+  for (int i = 0; i < MAX_STUDENT; ++i) {
+    if (!Students[i]) {
+      printf("姓名： %s, 年龄： %d", Students[i]->name, Students[i]->age);
+    }
+  }
+}
