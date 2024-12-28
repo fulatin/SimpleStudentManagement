@@ -6,8 +6,32 @@
 #include <vector>
 using std::string;
 using std::vector;
+
+struct CORSMiddleware {
+  struct context {};
+
+  void before_handle(crow::request &req, crow::response &res, context &ctx) {
+    // 添加 CORS 头
+    res.add_header("Access-Control-Allow-Origin", "*");
+    res.add_header("Access-Control-Allow-Methods",
+                   "GET, POST, PUT, DELETE, OPTIONS");
+    res.add_header("Access-Control-Allow-Headers",
+                   "Content-Type, Authorization");
+
+    // 如果是 OPTIONS 请求，直接返回 200
+    if (req.method == "OPTIONS"_method) {
+      res.code = 200;
+      res.end();
+    }
+    printf("enter");
+  }
+
+  void after_handle(crow::request &req, crow::response &res, context &ctx) {
+    // 不需要额外处理
+  }
+};
 int main() {
-  crow::SimpleApp app;
+  crow::App<CORSMiddleware> app;
   char buf[MAX_NAME_LEN] = "man";
   addStudent(buf, 12);
 
