@@ -2,8 +2,9 @@
 #include <crow.h>
 #include <crow/app.h>
 #include <cstring>
+#include <string>
 #include <vector>
-
+using std::string;
 using std::vector;
 int main() {
   crow::SimpleApp app;
@@ -31,6 +32,19 @@ int main() {
     }
     return response;
   });
+  CROW_ROUTE(app, "/student/add")
+      .methods("POST"_method)([&](const crow::request &req) {
+        auto x = crow::json::load(req.body);
+        string name = x["name"].s();
+        for (int i = 0; i < MAX_NAME_LEN && i < name.size(); ++i) {
+          buf[i] = name[i];
+        }
+        if (addStudent(buf, x["age"].i())) {
+          return crow::response(200);
+        } else {
+          return crow::response(503);
+        }
+      });
   app.port(2021).multithreaded().run();
   return 0;
 }
