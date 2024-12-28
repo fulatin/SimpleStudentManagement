@@ -2,7 +2,7 @@
 #define MANAGER_H
 #include "Student.h"
 #define MAX_STUDENT 10000
-extern Stu *Student[MAX_STUDENT];
+extern Stu *Students[MAX_STUDENT];
 // 返回1 表示成功 0 表示失败
 int addStudent(char name[MAX_NAME_LEN], int age);
 
