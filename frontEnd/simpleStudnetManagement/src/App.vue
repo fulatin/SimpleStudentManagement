@@ -2,33 +2,31 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import TopBar from './components/TopBar.vue';
-import addStudent from './components/addStudent.vue'
-const data = ref(null)
+import addStudent from './components/addStudent.vue';
+
+const data = ref(null);
 
 function getData() {
   axios.get("api/student/all").then(function (resp) {
     data.value = resp.data;
-  })
+  });
 }
 </script>
-
-
-
-
 
 <template>
   <header>
   </header>
 
-  <main class="anim main">
-    <TopBar class="anim "></TopBar>
-    <div style=text-align:center;>
-      <button @click=getData>show all student </button>
+  <main class="main">
+    <TopBar></TopBar>
+    <div class="button-container">
+      <button @click="getData" class="btn">Show All Students</button>
     </div>
     <div class="flex_container">
-
-      <div id="data" class="anim" v-for="it in data">name is{{ it["name"] }} age is{{ it["age"] }}</div>
-
+      <div id="data" class="anim" v-for="it in data" :key="it.id">
+        <p>Name: {{ it.name }}</p>
+        <p>Age: {{ it.age }}</p>
+      </div>
       <addStudent :onAddStu="getData"></addStudent>
     </div>
   </main>
@@ -36,65 +34,66 @@ function getData() {
 
 <style scoped>
 .flex_container {
-  align-content: center;
-  flex-wrap: wrap;
   display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-button:hover {
-  background-color: red;
+.button-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
 }
 
 .main {
-  width: 60%;
-  text-align: center;
+  width: 90%;
+  max-width: 1200px;
   margin: auto;
+  text-align: center;
 }
 
-button {
-  background-color: lightgoldenrodyellow;
-  border-radius: 5px;
-  border-color: red;
-  border-style: solid;
-
-  transition: background-color 1s;
+#data {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding: 15px;
+  width: 200px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #data:hover {
-  background-color: lightblue;
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes create {
   from {
     opacity: 0;
-    transform: translateY(100px);
+    transform: translateY(20px);
   }
 
   to {
     opacity: 1;
-
+    transform: translateY(0);
   }
 }
 
 .anim {
-
-  animation: create 1s;
+  animation: create 0.5s ease-out;
 }
-
-#data {
-  border-style: solid;
-  box-sizing: border-box;
-  transition: background-color 0.3s;
-  width: 45%;
-  height: 20%;
-  background-color: grey;
-  transition: background-color 1s;
-  border-style: initial;
-  border-radius: 3px;
-  text-align: center;
-  border-color: lightskyblue;
-  margin: auto;
-  padding: 10px;
-  margin-top: 10px;
-}
-</style>
+</style>/style>
