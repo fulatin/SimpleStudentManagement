@@ -2,6 +2,7 @@
 #define STUDENT_H
 #define MAX_NAME_LEN 100
 struct student {
+  int id;
   char name[MAX_NAME_LEN];
   int age;
 };
