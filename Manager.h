@@ -18,5 +18,6 @@ int saveToFile(char path[MAX_NAME_LEN]);
 // 从文件中读取学生信息
 int readFromFile(char path[MAX_NAME_LEN]);
 
+int delStudentById(int id);
 void printAllStudent();
 #endif

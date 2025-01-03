@@ -1,7 +1,7 @@
 #include "Manager.h"
 #include "Student.h"
-
 #include <stdio.h>
+#include <stdlib.h>
 int studentCnt = 0;
 Stu *Students[MAX_STUDENT];
 int addStudent(char name[MAX_NAME_LEN], int age) {
@@ -92,4 +92,15 @@ void printAllStudent() {
       printf("姓名： %s, 年龄： %d", Students[i]->name, Students[i]->age);
     }
   }
+}
+
+int delStudentById(int id) {
+  for (int i = 0; i <= MAX_STUDENT; ++i) {
+    if (!Students[i] && Students[i]->id == id) {
+      free(Students[i]);
+      Students[i] = 0;
+      return 1;
+    }
+  }
+  return 0;
 }
