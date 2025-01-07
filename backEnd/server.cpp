@@ -47,6 +47,7 @@ int main() {
       if (Students[i]) {
         response[count]["name"] = Students[i]->name;
         response[count]["age"] = Students[i]->age;
+        response[count]["id"] = Students[i]->id;
         Stu tmp;
         strcpy(tmp.name, Students[i]->name);
         tmp.age = Students[i]->age;
@@ -69,6 +70,12 @@ int main() {
           return crow::response(503);
         }
       });
+
+  CROW_ROUTE(app, "/student/del/<int>")([&](int id) {
+    auto x = crow::json::wvalue();
+    x["result"] = delStudentById(id);
+    return x;
+  });
   app.port(2021).multithreaded().run();
   return 0;
 }
